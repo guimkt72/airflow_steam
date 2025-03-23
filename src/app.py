@@ -2,7 +2,7 @@ import requests
 import pandas as pd
 
 # Cookie para autenticação
-cookie = {'steamLoginSecure': '76561198361827516%7C%7CeyAidHlwIjogIkpXVCIsICJhbGciOiAiRWREU0EiIH0.eyAiaXNzIjogInI6MDAwMl8yNTgzRTJFNl9EM0E1OCIsICJzdWIiOiAiNzY1NjExOTgzNjE4Mjc1MTYiLCAiYXVkIjogWyAid2ViOmNvbW11bml0eSIgXSwgImV4cCI6IDE3NDI3MzU1OTQsICJuYmYiOiAxNzM0MDA5MDE3LCAiaWF0IjogMTc0MjY0OTAxNywgImp0aSI6ICIwMDBFXzI2MDYzQTREXzg3Njk2IiwgIm9hdCI6IDE3MzQxODMwMzgsICJydF9leHAiOiAxNzUyNzM5MTYwLCAicGVyIjogMCwgImlwX3N1YmplY3QiOiAiMTc3LjM1LjEzOS4yNDAiLCAiaXBfY29uZmlybWVyIjogIjE3Ny4zNS4xMzkuMjQwIiB9.-iopYCcoeTd33K5qW-mELxMTSssQOMxHJZ0VnKJ61xqM1vH9CtbB56vK3KGW4NeBhtRQBf-YinJK9xhqLHJZBQ'}  
+cookie = {'steamLoginSecure': '76561198361827516%7C%7CeyAidHlwIjogIkpXVCIsICJhbGciOiAiRWREU0EiIH0.eyAiaXNzIjogInI6MDAwMl8yNTgzRTJFNl9EM0E1OCIsICJzdWIiOiAiNzY1NjExOTgzNjE4Mjc1MTYiLCAiYXVkIjogWyAid2ViOmNvbW11bml0eSIgXSwgImV4cCI6IDE3NDI4MjYxNTEsICJuYmYiOiAxNzM0MDk4ODQ4LCAiaWF0IjogMTc0MjczODg0OCwgImp0aSI6ICIwMDBFXzI2MDYzQTYxX0IxNjQwIiwgIm9hdCI6IDE3MzQxODMwMzgsICJydF9leHAiOiAxNzUyNzM5MTYwLCAicGVyIjogMCwgImlwX3N1YmplY3QiOiAiMTc3LjM1LjEzOS4yNDAiLCAiaXBfY29uZmlybWVyIjogIjE3Ny4zNS4xMzkuMjQwIiB9.Ry734IAI1YnnLQf2vfuLC4wYRgQUnGwBlHntHrNaXDS3ITnKxp6AH5n6h1-RcV8VHPujgzzXzilG_FlcHIGUCQ'}  
 
 # Dicionário com os itens e suas URLs
 inventory = {
@@ -18,7 +18,8 @@ inventory = {
     'AK-47 - Bloodsport (FT)': 'https://steamcommunity.com/market/pricehistory/?country=PT&currency=7&appid=730&market_hash_name=AK-47%20%7C%20Bloodsport%20(Field-Tested)',
     'Hunstman - Crimson Web (FT)': 'https://steamcommunity.com/market/pricehistory/?country=PT&currency=7&appid=730&market_hash_name=%E2%98%85%20Huntsman%20Knife%20%7C%20Crimson%20Web%20(Field-Tested)',
     'Talon - Night Stripe (BS)': 'https://steamcommunity.com/market/pricehistory/?country=PT&currency=7&appid=730&market_hash_name=%E2%98%85%20Talon%20Knife%20%7C%20Night%20Stripe%20(Battle-Scarred)',
-    'Galil - Cerberus (MW)': 'https://steamcommunity.com/market/pricehistory/?country=PT&currency=7&appid=730&market_hash_name=Galil%20AR%20%7C%20Cerberus%20(Minimal%20Wear)'}
+    'Galil - Cerberus (MW)': 'https://steamcommunity.com/market/pricehistory/?country=PT&currency=7&appid=730&market_hash_name=Galil%20AR%20%7C%20Cerberus%20(Minimal%20Wear)',
+    'AWP - Graphite (FN)': 'https://steamcommunity.com/market/pricehistory/?country=PT&currency=7&appid=730&market_hash_name=AWP%20%7C%20Graphite%20(Factory%20New)'}
 
 
 # DataFrame final
@@ -54,6 +55,6 @@ for item_name, url in inventory.items():
         print(f"❌ Erro ao processar {item_name}: {e}")
 
 # Exibir resultado final
-print(df_final)
+print("✔ Sucesso: App.py executed")
 
-df_final.to_csv('inventory_data.csv')
+

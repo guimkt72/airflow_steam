@@ -6,7 +6,7 @@ sources:
     database: "airflow_steam"  # O nome do banco de dados onde a tabela 'raw_data' está
     schema: "public"  # O esquema onde a tabela está localizada (geralmente 'public')
     tables:
-      - name: raw_data  # Nome da tabela no banco de dados
+      - name: raw_data_new  # Nome da tabela no banco de dados
         description: "Tabela com dados brutos de itens, ofertas e preços."
         columns:
           - name: item
@@ -17,3 +17,11 @@ sources:
             description: "Número de ofertas."
           - name: price
             description: "Preço do item."
+      - name: raw_data_date_buy  # Nome da tabela no banco de dados
+        description: "Tabela com dados brutos de itens, ofertas e preços."
+        columns:
+          - name: item
+            description: "Nome do item."
+          - name: date_buy
+            description: "Data do registro."
+

@@ -9,8 +9,16 @@
 
 {{ config(materialized='view') }}
 
-SELECT *
-FROM {{ source('raw_data_source', 'raw_data') }}
+SELECT
+
+    item,
+    date(date) as "date",
+    offers,
+    round(CAST(price AS numeric), 2) as price
+
+
+
+FROM {{ source('raw_data_source', 'raw_data_new') }}
 
 /*
     Uncomment the line below to remove records with null `id` values
