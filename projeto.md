@@ -20,7 +20,10 @@
 # -> vision of prices's historical mean
 # -> vision of amount of offers along the time
 # -> Should I choose the date?
-# -> Vision of -> First date and price / Last date and price / Appreciation
+# -> VISION OF Volatily: https://chatgpt.com/c/67e09e8e-2a34-8010-93b2-d2f6f3e3af47 (TABLE OF VOLATILY OF EACH ITEM FOR last 6,12,24 MONTHS)
+
+
+# -> Vision of resume -> Date & Price Buy / Last Date & Price Buy / Appreciation
 
 # DOTENV -> REQUERIED/MANDATORY
 

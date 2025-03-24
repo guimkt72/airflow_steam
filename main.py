@@ -126,6 +126,19 @@ def load_cagr_data():
             conn.close()
     return None
 
+@st.cache_data(ttl=3600)
+def load_volatility_data():
+    """Load volatility data from the database"""
+    conn = get_db_connection()
+    if conn:
+        try:
+            query = "select * from volatility_data_dbt"
+            df = pd.read_sql_query(query, conn)
+            return df
+        finally:
+            conn.close()
+    return None
+
 def plot_historical_metrics(df, selected_items, selected_metric):
     """Create a line plot for historical metrics"""
     if df is None or df.empty:
@@ -157,7 +170,9 @@ def plot_historical_metrics(df, selected_items, selected_metric):
             title_font_color='black',
             tickfont_color='black'
         ),
-        legend_font_color='black'
+
+        legend_font_color='black',
+        legend_title=dict(font=dict(color="black"))
     )
     return fig
 
@@ -260,6 +275,7 @@ wallet_data = load_wallet_data()
 historical_data = load_historical_data()
 current_price_data = load_current_price_data()
 cagr_data = load_cagr_data()
+volatility_data = load_volatility_data()
 
 # Wallet Summary Section
 st.header('Wallet Summary')
@@ -373,5 +389,37 @@ if cagr_data is not None:
         # Display CAGR plot
         fig = plot_cagr_comparison(cagr_data, selected_cagr_items)
         st.plotly_chart(fig, use_container_width=True)
+
+# Volatility Analysis Section
+st.markdown("---")  # Add a divider
+
+st.header('Volatility Analysis')
+
+if volatility_data is not None:
+    # Rename columns for better display
+    display_columns = {
+        'item': 'Item',
+        'volatility_3m': '3 Months',
+        'volatility_6m': '6 Months',
+        'volatility_12m': '12 Months',
+        'volatility_24m': '24 Months'
+    }
+    
+    # Format the dataframe for display
+    display_df = volatility_data.copy()
+    display_df = display_df.rename(columns=display_columns)
+    
+    # Format volatility values as percentages
+    for col in ['3 Months', '6 Months', '12 Months', '24 Months']:
+        display_df[col] = display_df[col].map('{:.2f}%'.format)
+    
+    # Display the table
+    st.dataframe(
+        display_df,
+        hide_index=True,
+        use_container_width=True
+    )
+else:
+    st.error("Unable to load volatility data")
 
 

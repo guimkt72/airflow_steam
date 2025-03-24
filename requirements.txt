@@ -42,7 +42,7 @@ pandas==2.2.3
 parsedatetime==2.6
 pathspec==0.12.1
 pillow==11.1.0
-protobuf==5.29.4
+protobuf>=3.19,<5.0
 psycopg2-binary==2.9.10
 pyarrow==19.0.1
 pydantic==2.10.6
@@ -59,7 +59,7 @@ rpds-py==0.23.1
 six==1.17.0
 smmap==5.0.2
 snowplow-tracker==1.1.0
-sqlalchemy==2.0.39
+sqlalchemy>=1.4.36,<2.0
 sqlparse==0.5.3
 streamlit>=1.43.2
 tenacity==9.0.0
@@ -72,4 +72,4 @@ urllib3==2.3.0
 watchdog==6.0.0
 zipp==3.21.0
 plotly>=5.18.0
-python-dotenv>=1.0.0
+python-dotenv>=0.21.0,<0.22.0
