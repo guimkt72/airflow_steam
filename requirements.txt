@@ -42,7 +42,7 @@ pandas==2.2.3
 parsedatetime==2.6
 pathspec==0.12.1
 pillow==11.1.0
-protobuf>=3.19,<5.0
+protobuf==4.24.4
 psycopg2-binary==2.9.10
 pyarrow==19.0.1
 pydantic==2.10.6
@@ -73,3 +73,4 @@ watchdog==6.0.0
 zipp==3.21.0
 plotly>=5.18.0
 python-dotenv>=0.21.0,<0.22.0
+
