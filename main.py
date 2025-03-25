@@ -267,6 +267,58 @@ def plot_cagr_comparison(df, selected_items=None):
     )
     return fig
 
+def plot_total_price_variation(df):
+    """Create a bar plot comparing total price variation (first to last date) for each item"""
+    if df is None or df.empty:
+        return None
+    
+    # Get first and last price for each item
+    first_prices = df.groupby('item').agg({'date_month': 'min', 'med_price': 'first'}).reset_index()
+    last_prices = df.groupby('item').agg({'date_month': 'max', 'med_price': 'last'}).reset_index()
+    
+    # Calculate variation
+    variations = pd.merge(first_prices, last_prices, on='item', suffixes=('_first', '_last'))
+    variations['total_variation'] = ((variations['med_price_last'] - variations['med_price_first']) / 
+                                   variations['med_price_first'] * 100)
+    
+    # Sort by variation
+    variations = variations.sort_values('total_variation', ascending=True)
+    
+    fig = go.Figure(data=[
+        go.Bar(
+            x=variations['total_variation'],
+            y=variations['item'],
+            orientation='h',
+            marker_color='blue'
+        )
+    ])
+    
+    fig.update_layout(
+        title='Total Price Variation (First to Last Date)',
+        plot_bgcolor='white',
+        paper_bgcolor='white',
+        font_color='black',
+        title_font_color='black',
+        height=max(400, len(variations) * 25),  # Adjust height based on number of items
+        xaxis=dict(
+            title='Variation %',
+            showgrid=False,
+            linecolor='black',
+            linewidth=1,
+            title_font_color='black',
+            tickfont_color='black'
+        ),
+        yaxis=dict(
+            title='Items',
+            showgrid=False,
+            linecolor='black',
+            linewidth=1,
+            title_font_color='black',
+            tickfont_color='black'
+        )
+    )
+    return fig
+
 # Streamlit UI
 st.title('CS2 Steam Market Analytics Dashboard')
 
@@ -390,36 +442,45 @@ if cagr_data is not None:
         fig = plot_cagr_comparison(cagr_data, selected_cagr_items)
         st.plotly_chart(fig, use_container_width=True)
 
-# Volatility Analysis Section
+# Create columns for Volatility and Total Price Variation sections
 st.markdown("---")  # Add a divider
+col5, col6 = st.columns(2)
 
-st.header('Volatility Analysis')
+# Volatility Analysis Section
+with col5:
+    st.header('Volatility Analysis')
+    if volatility_data is not None:
+        # Rename columns for better display
+        display_columns = {
+            'item': 'Item',
+            'volatility_3m': '3 Months',
+            'volatility_6m': '6 Months',
+            'volatility_12m': '12 Months',
+            'volatility_24m': '24 Months'
+        }
+        
+        # Format the dataframe for display
+        display_df = volatility_data.copy()
+        display_df = display_df.rename(columns=display_columns)
+        
+        # Format volatility values as percentages
+        for col in ['3 Months', '6 Months', '12 Months', '24 Months']:
+            display_df[col] = display_df[col].map('{:.2f}%'.format)
+        
+        # Display the table
+        st.dataframe(
+            display_df,
+            hide_index=True,
+            use_container_width=True
+        )
+    else:
+        st.error("Unable to load volatility data")
 
-if volatility_data is not None:
-    # Rename columns for better display
-    display_columns = {
-        'item': 'Item',
-        'volatility_3m': '3 Months',
-        'volatility_6m': '6 Months',
-        'volatility_12m': '12 Months',
-        'volatility_24m': '24 Months'
-    }
-    
-    # Format the dataframe for display
-    display_df = volatility_data.copy()
-    display_df = display_df.rename(columns=display_columns)
-    
-    # Format volatility values as percentages
-    for col in ['3 Months', '6 Months', '12 Months', '24 Months']:
-        display_df[col] = display_df[col].map('{:.2f}%'.format)
-    
-    # Display the table
-    st.dataframe(
-        display_df,
-        hide_index=True,
-        use_container_width=True
-    )
-else:
-    st.error("Unable to load volatility data")
+# Total Price Variation Section
+with col6:
+    st.header('Total Price Variation')
+    if historical_data is not None:
+        fig = plot_total_price_variation(historical_data)
+        st.plotly_chart(fig, use_container_width=True)
 
 

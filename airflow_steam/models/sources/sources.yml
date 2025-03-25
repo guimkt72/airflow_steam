@@ -22,6 +22,6 @@ sources:
         columns:
           - name: item
             description: "Nome do item."
-          - name: date_buy
+          - name: date_buy_test
             description: "Data do registro."
 
