@@ -1,0 +1,12 @@
+airflow_steam:
+  outputs:
+    dev:
+      dbname: airflow_steam
+      host: dpg-cvfdnt0fnakc739nfaqg-a.oregon-postgres.render.com
+      pass: PJX5rcoxDV1DfLPtt3mEEJrFu8s9o2bb
+      port: 5432
+      schema: public
+      threads: 10
+      type: postgres
+      user: airflow_steam_user
+  target: dev

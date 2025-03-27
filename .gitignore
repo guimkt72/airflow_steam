@@ -10,5 +10,7 @@ wheels/
 .venv
 .env
 
+/airflow/airflow_steam/dbt-env
+
 
 uv.lock

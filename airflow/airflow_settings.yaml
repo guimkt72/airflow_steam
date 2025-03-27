@@ -6,6 +6,17 @@
 # For issues create an issue ticket here: https://github.com/astronomer/astro-cli/issues
 
 airflow:
+
+  extra_volume_mounts:
+    - host_path: ./airflow_steam
+      container_path: /usr/local/airflow/airflow_steam  # Changed from /dbt to /airflow_steam
+    - host_path: ./airflow_steam/profiles.yml
+      container_path: /home/astro/.dbt/profiles.yml  # Standard dbt location
+
+  environment:
+    - DBT_PROFILES_DIR=/home/astro/.dbt  # Point to standard location
+    - DBT_PROJECT_DIR=/usr/local/airflow/airflow_steam
+      
   connections:
     - conn_id:
       conn_type:
